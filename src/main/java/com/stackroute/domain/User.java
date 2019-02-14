@@ -3,6 +3,8 @@ package com.stackroute.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
+
 
 @Document
 public class User {
@@ -13,10 +15,9 @@ public class User {
      */
 
     @Id
-
+    @Email
     private String email;
     private String password;
-    private String confirmPassword;
     private String firstName;
     private String lastName;
     private String interests;
@@ -41,13 +42,6 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -83,7 +77,6 @@ public class User {
         return "User{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", confirmPassword='" + confirmPassword + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", interests='" + interests + '\'' +
@@ -95,10 +88,9 @@ public class User {
     constructors for parameters
      */
 
-    public User(String email, String password, String confirmPassword, String firstName, String lastName, String interests) {
+    public User(String email, String password, String firstName, String lastName, String interests) {
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
         this.firstName = firstName;
         this.lastName = lastName;
         this.interests = interests;

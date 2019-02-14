@@ -1,9 +1,12 @@
 package com.stackroute.service;
 
 import com.stackroute.domain.User;
+import com.stackroute.exceptions.UserAlreadyExistsException;
 import com.stackroute.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,17 +26,19 @@ public class UserServiceImpl implements UserService {
     save user in db
      */
     @Override
-    public User saveUser(User user) {
+    public User saveUser(User user) throws UserAlreadyExistsException {
 
         if(userRepository.existsById(user.getEmail())){
-            System.out.println("user already exists");
+            throw new UserAlreadyExistsException("user already exists");
         }
 
         User savedUser = userRepository.save(user);
 
-        if(savedUser == null)
-            System.out.println("Give a valid Input");
-
         return savedUser;
+    }
+
+    @Override
+    public List<User> getUser() {
+        return userRepository.findAll();
     }
 }
